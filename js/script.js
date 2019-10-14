@@ -1,23 +1,27 @@
 var repository = [ 
 	{ 
 		name: 'Pikachu',
-		hieght: '0.4 m', 
+		height: '0.4 m', 
 		type: 'Electric'
 	}, 
 	{
 		name: 'Blastoise', 
-		hieght: '1.6 m', 
+		height: '1.6 m', 
 		type: 'Water'
 	}, 
 	{
 		name: 'Poliwhirl', 
-		hieght: '1.0 m', 
+		height: '1.0 m', 
 		type: 'Water'
 	} 
 ];	  
 
 for (var i = 0; i <= repository.length; i++) {
-	 document.write(repository[i].name + '<br />'); 
-	 document.write(repository[i].hieght + '<br />'); 
-	 document.write(repository[i].type + '<br />');
+	if (parseFloat(repository[i].height) > 1.0) {
+		document.write('<br />' + repository[i].name+' (height: '+repository[i].height+'). Wow that is tall!');
+	} 
+	else {
+		document.write('<br />' + repository[i].name+' (height: '+repository[i].height+').');
+	}
+
 };
