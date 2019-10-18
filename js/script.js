@@ -1,40 +1,65 @@
-var repository = [ 
-{ 
-	name: 'Pikachu',
-	height: '0.4 m', 
-	type: 'electric'
-}, 
-{
-	name: 'Blastoise', 
-	height: '1.6 m', 
-	type: 'water'
-}, 
-{
-	name: 'Poliwhirl', 
-	height: '1.0 m', 
-	type: 'water'
-} 
-];	
+// An Immediately Invoked Function Expression to instantiate a pokemon repository and 
+var pokemonRepository = (function () {
+	var repository = [ 
+	{  	 
+		name: 'Pikachu',
+		height: '0.4 m', 
+		type: 'electric'
+	}, 
+	{
+		name: 'Blastoise', 
+		height: '1.6 m', 
+		type: 'water'
+	}, 
+	{
+		name: 'Poliwhirl', 
+		height: '1.0 m', 
+		type: 'water'
+	},
+	{
+		name: 'Ivysaur', 
+		height: '1.0 m', 
+		type: ['grass', 'poison']
+	}, 
+	{
+		name: 'Gyarados', 
+		height: '6.5 m', 
+		type: ['water', 'flying']
+	}, 
+	{
+		name: 'Genger',
+		height: '1.5 m', 
+		type: ['ghost', 'poison']
+	}
+	];
 
-var repository2 = [ 
-{
-	name: 'Ivysaur', 
-	height: '1.0 m', 
-	type: ['grass', 'poison']
-}, 
-{
-	name: 'Gyarados', 
-	height: '6.5 m', 
-	type: ['water', 'flying']
-}, 
-{
-	name: 'Genger',
-	height: '1.5 m', 
-	type: ['ghost', 'poison']
-}	
-]; 
+	function add(pokemon) {
+		repository.push(pokemon);
+	}
 
-var fullRepository = repository.concat(repository2);
+	function getAll() {
+		return repository;
+	} 
+
+	function printAll(poke) {
+
+	}
+
+	return {
+		add: add,
+		getAll: getAll
+	};
+})();
+
+var fullRepository = pokemonRepository.getAll(); 
+
+var newPokemon = { 
+	name: 'Eevee', 
+	height: '0.6 m', 
+	type: 'normal'
+}; 
+
+pokemonRepository.add(newPokemon);
 
 fullRepository.forEach((currentPokemon) => { 
 	printArrayDetails(currentPokemon);
@@ -62,6 +87,3 @@ function getTypes(pokemon) {
 	} 
 	return typeString;
 };
-
-//printArrayDetails(repository); 
-//printArrayDetails(repository2);
