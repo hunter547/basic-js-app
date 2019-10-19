@@ -41,20 +41,40 @@ var pokemonRepository = (function () {
 		return repository; // Return all pokemon in the repository
 	} 
 
-	function printAll() { // Print all pokemon in the repository
-		repository.forEach((pokemon) => { 
-			var displayString = '';  
-			displayString = '<br />' + pokemon.name+'. '+getTypes(pokemon)+' Height: '+pokemon.height+'.'; 
-			if (parseFloat(pokemon.height) > 1.0) {
-				displayString = displayString.substring(0, displayString.length-1) + ' - Wow, that is tall!'; 
-			} 
-			document.write(displayString);
+	function addListItem(pokemon) { // Display all pokemon in the repository
+		var pokemonListItem = document.createElement('LI'); 
+		var pokemonLIButton = document.createElement('BUTTON'); 
+		pokemonLIButton.classList.add('pokemon-buttons');
+		pokemonLIButton.innerText = pokemon.name; 
+		pokemonListItem.appendChild(pokemonLIButton); 
+		pokemonList.appendChild(pokemonListItem); 
+		addPokemonListener(pokemonLIButton, pokemon);
+	} 
+
+	function addListItem(pokemon, button) { // Overload the function for when the item needs to be inserted before the button
+		var pokemonListItem = document.createElement('LI'); 
+		var pokemonLIButton = document.createElement('BUTTON'); 
+		pokemonLIButton.classList.add('pokemon-buttons');
+		pokemonLIButton.innerText = pokemon.name; 
+		pokemonListItem.appendChild(pokemonLIButton); 
+		pokemonList.insertBefore(pokemonListItem, button); 
+		addPokemonListener(pokemonLIButton, pokemon);
+	} 
+
+	function addPokemonListener (button, pokemon) {
+		button.addEventListener('click', function() {
+			showDetails(pokemon);
 		});
 	}
+
+	function showDetails(pokemon) {
+		console.log(pokemon);
+	}
+
 	return {
 		add: add,
-		getAll: getAll, 
-		printAll: printAll
+		getAll: getAll,
+		addListItem: addListItem
 	};
 })();
 
@@ -65,49 +85,31 @@ var newPokemon = {
 	height: '0.6 m', 
 	type: 'normal'
 }; 
-pokemonRepository.add(newPokemon);
+pokemonRepository.add(newPokemon); 
+
+var pokemonList = document.querySelector('.pokemon-list'); 
+
 fullRepository.forEach((currentPokemon) => { 
-	printArrayDetails(currentPokemon);
+	pokemonRepository.addListItem(currentPokemon);
 }); 
 
-function printArrayDetails(pokemon) { 
-	var displayString = '';  
-	displayString = '<br />' + pokemon.name+'. '+getTypes(pokemon)+' Height: '+pokemon.height+'.'; 
-	if (parseFloat(pokemon.height) > 1.0) {
-		displayString = displayString.substring(0, displayString.length-1) + ' - Wow, that is tall!'; 
-	} 
-	document.write(displayString);
-}; 
+var addPokemonBtn = document.createElement('BUTTON'); 
+addPokemonBtn.innerText = 'Add your own pokemon'; 
+pokemonList.appendChild(addPokemonBtn); 
+addPokemonBtn.addEventListener('click', enterPokemon);  
 
-function getTypes(pokemon) { 
-	var typeString = 'Type: ';
-	if (pokemon.type instanceof Array) {
-		pokemon.type.forEach((currentType) => {
-			typeString += currentType + ' and '; 
-		});
-		typeString = typeString.substring(0,typeString.length-5) + '.';
-	} 
-	else { 
-		typeString += pokemon.type+'.';
-	} 
-	return typeString;
-};  
 
 function enterPokemon(){ 
-	document.body.innerHTML = '';
 	var pokemonName = enterPokemonName(); 
 	if (pokemonName == null) { 
-		drawDocument();
 		return;
 	}
 	var pokemonHeight = enterPokemonHeight(); 
-	if (pokemonHeight == null) { 
-		drawDocument();
+	if (pokemonHeight == null) {
 		return;
 	}
 	var pokemonType = enterPokemonType(); 
-	if (pokemonType == null) { 
-		drawDocument();
+	if (pokemonType == null) {
 		return;
 	}
 	var newPokemon = { 
@@ -119,7 +121,7 @@ function enterPokemon(){
 	newPokemon.height = pokemonHeight; 
 	anotherType(newPokemon, pokemonType); 
 	pokemonRepository.add(newPokemon); 
-	drawDocument();
+	pokemonRepository.addListItem(newPokemon, addPokemonBtn);
 	
 }; 
 
@@ -255,16 +257,3 @@ function anotherType(pokemon, firstType){
 			}
 		}
 }; 
-
-function drawDocument() {
-	pokemonRepository.printAll(); 
-	var addButton = document.createElement('BUTTON'); 
-	var buttonText = document.createTextNode('Add another pokemon');  
-	addButton.onclick = function() {
-		enterPokemon();
-	}
-	addButton.appendChild(buttonText); 
-	document.write('<br />');  
-	document.body.appendChild(addButton); 
-	document.title = 'Simple JS App';
-}
