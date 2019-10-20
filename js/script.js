@@ -33,15 +33,18 @@ var pokemonRepository = (function () {
 	}
 	]; 
 
+	// Add new pokemon to the repository
 	function add(pokemon) {
-		repository.push(pokemon); // Add new pokemon to the repository
+		repository.push(pokemon);
 	}
 
+	// Return all pokemon in the repository
 	function getAll() {
-		return repository; // Return all pokemon in the repository
+		return repository; 
 	} 
 
-	function addListItem(pokemon) { // Display all pokemon in the repository
+	// Display all pokemon in the repository
+	function addListItem(pokemon) { 
 		var pokemonListItem = document.createElement('LI'); 
 		var pokemonLIButton = document.createElement('BUTTON'); 
 		pokemonLIButton.classList.add('pokemon-buttons');
@@ -49,9 +52,10 @@ var pokemonRepository = (function () {
 		pokemonListItem.appendChild(pokemonLIButton); 
 		pokemonList.appendChild(pokemonListItem); 
 		addPokemonListener(pokemonLIButton, pokemon);
-	} 
+	}  
 
-	function addListItem(pokemon, button) { // Overload the function for when the item needs to be inserted before the button
+	// Overload the function for when the item needs to be inserted before the button.
+	function addListItem(pokemon, button) { 
 		var pokemonListItem = document.createElement('LI'); 
 		var pokemonLIButton = document.createElement('BUTTON'); 
 		pokemonLIButton.classList.add('pokemon-buttons');
@@ -61,15 +65,17 @@ var pokemonRepository = (function () {
 		addPokemonListener(pokemonLIButton, pokemon);
 	} 
 
+	// Creates event listeners for the buttons as they are being created.
 	function addPokemonListener (button, pokemon) {
 		button.addEventListener('click', function() {
 			showDetails(pokemon);
 		});
-	}
+	} 
 
+	// A simple function that logs the contents of the pokemon objects to the console.
 	function showDetails(pokemon) {
 		console.log(pokemon);
-	}
+	} 
 
 	return {
 		add: add,
@@ -93,17 +99,21 @@ fullRepository.forEach((currentPokemon) => {
 	pokemonRepository.addListItem(currentPokemon);
 }); 
 
-var addPokemonBtn = document.createElement('BUTTON'); 
-addPokemonBtn.innerText = 'Add your own pokemon'; 
-pokemonList.appendChild(addPokemonBtn); 
-addPokemonBtn.addEventListener('click', enterPokemon);  
+// This block of code creates a button that allows the user to create their own pokemon
+var addPokemonBtn = document.createElement('BUTTON');
+addPokemonBtn.innerText = 'Add your own pokemon'; 	  	
+pokemonList.appendChild(addPokemonBtn); 			  	
+addPokemonBtn.addEventListener('click', enterPokemon);
 
-
+/* 
+This function handles creating the variables needed for adding new pokemon, calling functions 
+responsible for validating user input, and adding the new pokemon to the repository. */
 function enterPokemon(){ 
 	var pokemonName = enterPokemonName(); 
 	if (pokemonName == null) { 
 		return;
 	}
+
 	var pokemonHeight = enterPokemonHeight(); 
 	if (pokemonHeight == null) {
 		return;
@@ -125,7 +135,7 @@ function enterPokemon(){
 	
 }; 
 
-function enterPokemonName() { 
+function enterPokemonName() { // prompt and validation handling for the pokemon's name.
 	var pokemonName = null; 
 	while (pokemonName == null 
 	|| pokemonName == ''
@@ -167,7 +177,7 @@ function enterPokemonName() {
 	return pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1).toLowerCase();
 }; 
 
-function enterPokemonHeight() { 
+function enterPokemonHeight() { //prompt and validation handling for the pokemon's height.
 	var pokemonHeight = null;
 	while (pokemonHeight == null || pokemonHeight == '' || typeof pokemonHeight != 'number') { 
 		if (pokemonHeight == null) {
@@ -196,7 +206,7 @@ function enterPokemonHeight() {
 	return pokemonHeight;
 }; 
 
-function enterPokemonType() {
+function enterPokemonType() { // prompt and validation handling for the pokemon's type(s).
 	var pokemonType = null; 
 	while (pokemonType == null 
 	|| pokemonType == '' 
@@ -238,7 +248,7 @@ function enterPokemonType() {
 	return pokemonType;
 }; 
 
-function anotherType(pokemon, firstType){
+function anotherType(pokemon, firstType){ // handles adding additional pokemon types if the user wishes to add more.
 	var anotherType = confirm('Would you like to add another type?') 
 		if (!anotherType){ 
 			pokemon.type = firstType.charAt(0).toUpperCase() + firstType.slice(1).toLowerCase();
