@@ -18,6 +18,28 @@
 	margin-left: -20px;
 } 
 
+.add-button {
+  background: #aed6d1;
+  border: 5px transparent;
+  border-radius: 40px;
+  color: #55706d; 
+  font-family: 'Garamond'; 
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  overflow: hidden; 
+  padding: 15px 30px;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  width: 200px;
+} 
+
+.add-button:hover {
+	cursor: pointer; 
+	opacity: 0.8;
+}
+
 @media all and (max-width: 500px) {
 	.pokemon-buttons {
 		width: 80%;

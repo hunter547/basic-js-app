@@ -101,7 +101,8 @@ fullRepository.forEach((currentPokemon) => {
 
 // This block of code creates a button that allows the user to create their own pokemon
 var addPokemonBtn = document.createElement('BUTTON');
-addPokemonBtn.innerText = 'Add your own pokemon'; 	  	
+addPokemonBtn.innerText = 'Add your own pokemon'; 
+addPokemonBtn.classList.add('add-button');	
 pokemonList.appendChild(addPokemonBtn); 			  	
 addPokemonBtn.addEventListener('click', enterPokemon);
 
