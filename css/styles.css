@@ -1,6 +1,11 @@
 .pokedex-title {
 	font-family: 'Garamond'; 
 	font-size: 40px;
+} 
+
+.loading-message {
+	font-family: 'Garamond'; 
+	font-size: 20px;
 }
 
 .pokemon-buttons { 
@@ -35,7 +40,7 @@
   width: 200px;
 } 
 
-.add-button:hover {
+.add-button:hover, .pokemon-buttons:hover {
 	cursor: pointer; 
 	opacity: 0.8;
 }
