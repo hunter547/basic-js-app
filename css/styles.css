@@ -35,7 +35,7 @@
   width: 200px;
 } 
 
-.add-button:hover {
+.add-button:hover, .pokemon-buttons:hover {
 	cursor: pointer; 
 	opacity: 0.8;
 }
