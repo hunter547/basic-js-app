@@ -108,42 +108,92 @@ var pokemonRepository = (function () {
 
 		var modalTypeTable = document.createElement('table'); 
 		modalTypeTable.classList.add('types-table');
-		var modalTypeTblHead = document.createElement('th');
-		modalTypeTblHead.innerText = 'Type';
+		var modalTypeTblHead = document.createElement('th'); 
+		modalTypeTblHead.classList.add('types-header');
+		modalTypeTblHead.innerText = 'Type:';
 		if (pokemon.types.length > 1) {
-			modalTypeTblHead.innerText = 'Types';
+			modalTypeTblHead.innerText = 'Types:';
 		} 
 
-		modalTypeTable.appendChild(modalTypeTblHead); 
+		modalTypeTable.appendChild(modalTypeTblHead);  
 
-		pokemon.types.forEach((type) => {
+		var modalTableDiv = document.createElement('div'); 
+		modalTableDiv.classList.add('modal-table-div'); 
+		modalTableDiv.appendChild(modalTypeTable);
+
+		pokemon.types.forEach((type) => { 
+			var typeText = type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1);
 			var modalTableContent = document.createElement('td'); 
-			modalTableContent.innerText = type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1); 
-			modalTableContent.classList.add('types-content');
+			modalTableContent.innerText = typeText; 
+			modalTableContent.classList.add('types-table'); 
+			modalTableContent.style.background = typeColor(typeText);
 			modalTypeTblHead.appendChild(modalTableContent);
 		}); 
 
 		var modalImage = document.createElement('IMG'); 
-		modalImage.src = pokemon.imageUrl;
+		modalImage.src = pokemon.imageUrl; 
+		var modalImageDiv = document.createElement('div'); 
+		modalImageDiv.classList.add('modal-image-div')
+		modalImageDiv.appendChild(modalImage);
 
 		modal.appendChild(closeButton); 
 		modal.appendChild(modalTitle);
-		modalBodyDiv.appendChild(modalImage);
+		modalBodyDiv.appendChild(modalImageDiv);
 		modalBodyDiv.appendChild(modalBodyTextDiv); 
-		modalBodyDiv.appendChild(modalTypeTable); 
+		modalBodyDiv.appendChild(modalTableDiv); 
 		modal.appendChild(modalBodyDiv);
 		
 
 		$modalContainer.appendChild(modal);
 
 		// Display the modal after all content has been set 
-		$modalContainer.classList.add('is-visible'); 
+		$modalContainer.classList.add('is-visible');  
 	}  
 
 
 	function hideModal() {
 		document.querySelector('#modal-container').classList.remove('is-visible');
-	} 
+	}  
+
+	function typeColor(type) {
+		switch (type) {
+			case 'Grass' : 
+				return 'rgba(0,204,0,0.3)'; 
+			case 'Poison': 
+				return 'rgba(255,0,255,0.3)'; 
+			case 'Water' : 
+				return 'rgba(0,0,255, 0.3)'; 
+			case 'Fire' : 
+				return 'rgba(255,128,0,0.65)';  
+			case 'Normal' : 
+				return 'rgb(255,229,204)'; 
+			case 'Flying' : 
+				return 'rgb(204,229,255)'; 
+			case 'Fairy' : 
+				return 'rgb(255,204,229)'; 
+			case 'Bug' : 
+				return 'rgba(0,153,76, 0.5)'; 
+			case 'Ground' : 
+				return 'rgba(153,76,0, 0.5)'; 
+			case 'Psychic' : 
+				return 'rgb(255,255,204)'; 
+			case 'Fighting' : 
+				return 'rgba(59, 91, 112, 0.6)'; 
+			case 'Steel' : 
+				return 'rgb(135,137,140)'; 
+			case 'Electric' : 
+				return 'rgba(255,254,0, 0.8)'; 
+			case 'Ice' : 
+				return 'rgba(165,242,243, 0.8)'; 
+			case 'Rock' : 
+				return 'rgba(150,159,178, 0.8)'; 
+			case 'Dragon' : 
+				return 'rgba(204,122,0, 0.8)';
+			default : 
+				return 'rgba(0,0,0,0)';			 
+
+		}
+	}
 
 	// Add a listener that will close the modal if the user presses the escape button
 	window.addEventListener('keydown', (e) => {
